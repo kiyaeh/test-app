@@ -11,3 +11,5 @@ services:
         value: 5000
       - key: NODE_ENV
         value: production
+      - key: FRONTEND_URL
+        value: https://test-app-smoky-ten.vercel.app
