@@ -3,7 +3,7 @@ services:
     name: addis-music-api
     env: node
     buildCommand: npm install && npm run build
-    startCommand: node dist/server.js
+    startCommand: npm run start:prod
     envVars:
       - key: MONGODB_URI
         sync: false
