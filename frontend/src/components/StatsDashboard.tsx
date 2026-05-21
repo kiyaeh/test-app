@@ -35,14 +35,14 @@ const CardsGrid = styled.div`
   gap: 14px;
 
   @media (max-width: 860px) { grid-template-columns: repeat(2, 1fr); }
-  @media (max-width: 480px) { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 480px) { grid-template-columns: repeat(2, 1fr); gap: 10px; }
 `;
 
 interface StatCardProps { accent: string; glow: string; delay: number; }
 
 const StatCard = styled.div<StatCardProps>`
   background: #131720;
-  border: 1px solid rgba(255,255,255,0.055);
+  border: none;
   border-radius: 12px;
   padding: 18px 20px;
   position: relative;
@@ -95,6 +95,8 @@ const CardValue = styled.p`
   margin: 0 0 4px;
   line-height: 1;
   letter-spacing: -1.5px;
+
+  @media (max-width: 480px) { font-size: 26px; }
 `;
 
 const CardLabel = styled.p`
@@ -113,14 +115,14 @@ const PanelsRow = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   gap: 14px;
 
-  @media (max-width: 860px) { grid-template-columns: 1fr; }
+  @media (max-width: 860px) { grid-template-columns: 1fr; gap: 10px; }
 `;
 
 interface PanelProps { delay: number; }
 
 const Panel = styled.div<PanelProps>`
   background: #131720;
-  border: 1px solid rgba(255,255,255,0.055);
+  border: none;
   border-radius: 12px;
   overflow: hidden;
   animation: ${rise} 0.32s ease both;
@@ -132,7 +134,7 @@ const PanelHead = styled.div`
   align-items: center;
   gap: 8px;
   padding: 14px 18px 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.045);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 `;
 
 const PanelHeadIcon = styled.span`

@@ -27,9 +27,14 @@ const backdropIn = keyframes`
 
 const Shell = styled.div`
   display: flex;
+  width: 100%;
   height: 100vh;
   overflow: hidden;
   background: #080B12;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 // ─── Sidebar ──────────────────────────────────────────────────────────────────
@@ -49,7 +54,7 @@ const Sidebar = styled.aside`
 
 const SidebarTop = styled.div`
   padding: 28px 20px 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 `;
 
 const Brand = styled.div`
@@ -158,7 +163,7 @@ const NavIcon = styled.span`
 
 const SidebarBottom = styled.div`
   padding: 16px 20px;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(255,255,255,0.05);
 `;
 
 const VersionTag = styled.p`
@@ -188,6 +193,10 @@ const TopBar = styled.header`
   backdrop-filter: blur(16px);
   position: relative;
   z-index: 5;
+
+  @media (max-width: 768px) {
+    padding: 0 16px;
+  }
 `;
 
 const PageHeading = styled.h1`
@@ -236,13 +245,18 @@ const ScrollArea = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    padding: 16px;
+    padding-bottom: 80px; /* space for mobile bottom nav */
+  }
 `;
 
 // ─── Card wrapper ─────────────────────────────────────────────────────────────
 
 const Card = styled.div`
   background: #131720;
-  border: 1px solid rgba(255,255,255,0.055);
+  border: none;
   border-radius: 12px;
   overflow: hidden;
   animation: ${slideIn} 0.28s ease both;
@@ -303,6 +317,50 @@ const CloseBtn = styled.button`
   transition: all 0.14s ease;
 
   &:hover { background: rgba(255,255,255,0.09); color: #E8EDF5; }
+`;
+
+// ─── Mobile bottom nav ────────────────────────────────────────────────────────
+
+const MobileNav = styled.nav`
+  display: none;
+
+  @media (max-width: 768px) {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: #0E1118;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    z-index: 20;
+  }
+`;
+
+interface MobileNavBtnProps { active?: boolean; }
+
+const MobileNavBtn = styled.button<MobileNavBtnProps>`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: ${({ active }) => (active ? '#A78BFA' : '#3D4A63')};
+  font-size: 11px;
+  font-weight: ${({ active }) => (active ? 600 : 400)};
+  font-family: inherit;
+  transition: color 0.14s ease;
+
+  &:active { opacity: 0.7; }
+`;
+
+const MobileNavIcon = styled.span`
+  font-size: 20px;
+  line-height: 1;
 `;
 
 // ─── View type ────────────────────────────────────────────────────────────────
@@ -389,6 +447,17 @@ function AppContent(): JSX.Element {
           </Modal>
         </Backdrop>
       )}
+
+      <MobileNav>
+        <MobileNavBtn active={view === 'library'} onClick={() => setView('library')}>
+          <MobileNavIcon>🎧</MobileNavIcon>
+          Library
+        </MobileNavBtn>
+        <MobileNavBtn active={view === 'stats'} onClick={() => setView('stats')}>
+          <MobileNavIcon>📊</MobileNavIcon>
+          Statistics
+        </MobileNavBtn>
+      </MobileNav>
     </Shell>
   );
 }
